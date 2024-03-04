@@ -2,21 +2,40 @@ import { useState } from "react";
 
 type objectProps = {
   object: string;
+  object2: string;
 };
 
-export function ToDoList({ object }: objectProps) {
-  const [task, setTask] = useState(["test 1", "test 2"]);
-  const [newTask, setNewTask] = useState("");
+type Task = {
+  title: string;
+  remarks: string;
+  // Assuming date is represented as a string
+};
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTask(event.target.value);
+export function ToDoList({ object, object2 }: objectProps) {
+  const [task, setTask] = useState<Task[]>([]);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskRemarks, setTaskRemarks] = useState("");
+  //const [newTask, setNewTask] = useState("");
+
+  const handleTaskTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskTitle(event.target.value);
   };
 
+  //const handleTaskRemarks = (event: React.ChangeEvent<HTMLInputElement>) => {setTaskRemarks(event.target.value);};
+
   const handleAddTask = () => {
-    if (newTask.trim() !== "") {
-      setTask((prevTask) => [...prevTask, newTask]);
-      setNewTask("");
+    if (!taskTitle.trim()) {
+      return; // Don't add task if title or remarks are empty
     }
+
+    const newTask: Task = {
+      title: taskTitle,
+      remarks: taskRemarks,
+    };
+
+    setTask((prevTask) => [...prevTask, newTask]);
+    setTaskTitle("");
+    setTaskRemarks("");
   };
 
   const handleDeleteTask = (index: number) => {
@@ -45,49 +64,83 @@ export function ToDoList({ object }: objectProps) {
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleAddTask();
+  };
+
   return (
     <>
-      <div>
-        <h2 className="text-2xl font-bold underline">{object}</h2>
-
-        <div className="card card-compact w-72 bg-indigo-950 shadow-xl hover:bg-indigo-900">
-          <ul className="card-body card-actions justify-end">
-            {task.map((task, index) => (
-              <li key={index}>
-                <span>{task}</span>
-                <button
-                  className="delete-button"
-                  onClick={() => handleDeleteTask(index)}
-                >
-                  {" "}
-                  X{" "}
-                </button>
-                <button
-                  className="move-button"
-                  onClick={() => handleMoveTaskUp(index)}
-                >
-                  ⬆️
-                </button>
-                <button
-                  className="move-button"
-                  onClick={() => handleMoveTaskDown(index)}
-                >
-                  ⬇️
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="bg-lime-100 rounded-xl py-3 px-2 pr-4 ml-3">
+        {/* input area */}
         <div>
-          <input
-            type="text"
-            placeholder="enter something"
-            value={newTask}
-            onChange={handleInputChange}
-          />
-          <button className="add-button" onClick={handleAddTask}>
-            Add Task
-          </button>
+          <div className="py-4 px-8 ml-3">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder={object2}
+                className="input input-bordered w-full max-w-xs bg-emerald-100 font-bold my-2"
+                value={taskTitle}
+                onChange={handleTaskTitle}
+              />
+              <br />
+              {/*            <input
+              type="text"
+              placeholder="write notes"
+              className="input input-bordered w-full max-w-xs bg-emerald-100"
+              value={taskRemarks}
+              onChange={handleTaskRemarks}
+  /> */}
+              {/*<button
+                className="btn btn-outline btn-sm bg-lime-600 border-lime-600 "
+                onClick={handleAddTask}
+              >
+                Add Task
+</button>*/}
+            </form>
+          </div>
+        </div>
+
+        <div className=" bg-lime-200 rounded-xl px-2 py-7 ml-2 ">
+          <h2 className=" text-2xl font-bold text-green-950">
+            {object} &nbsp;{task.length}
+          </h2>
+
+          <div className=" text-justify font-bold text-white">
+            <div>
+              {task.map((task, index) => (
+                <div
+                  className="card card-compact w- m-2 ml-4 pl-3 bg-lime-800 shadow-xl hover:bg-lime-400"
+                  key={index}
+                >
+                  <h1 className="text-lg">{task.title}</h1>
+                  <span className="card-body">{task.remarks}</span>
+
+                  <div className="card-actions justify-end">
+                    <button
+                      className=" btn btn-xs btn-error ml-2 m-1"
+                      onClick={() => handleDeleteTask(index)}
+                    >
+                      {" "}
+                      X{" "}
+                    </button>
+                    <button
+                      className="btn btn-xs btn-success ml-2 m-1"
+                      onClick={() => handleMoveTaskUp(index)}
+                    >
+                      ⬆️
+                    </button>
+                    <button
+                      className="btn btn-xs btn-success ml-2 mr-3 m-1"
+                      onClick={() => handleMoveTaskDown(index)}
+                    >
+                      ⬇️
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>
