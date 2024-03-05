@@ -3,6 +3,7 @@ import { useState } from "react";
 type objectProps = {
   object: string;
   object2: string;
+  searchTerm: string;
 };
 
 type Task = {
@@ -11,7 +12,7 @@ type Task = {
   // Assuming date is represented as a string
 };
 
-export function ToDoList({ object, object2 }: objectProps) {
+export function ToDoList({ object, object2, searchTerm }: objectProps) {
   const [task, setTask] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskRemarks, setTaskRemarks] = useState("");
@@ -20,6 +21,10 @@ export function ToDoList({ object, object2 }: objectProps) {
   const handleTaskTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskTitle(event.target.value);
   };
+
+  const filteredTasks = task.filter((task) =>
+    task.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   //const handleTaskRemarks = (event: React.ChangeEvent<HTMLInputElement>) => {setTaskRemarks(event.target.value);};
 
@@ -108,7 +113,7 @@ export function ToDoList({ object, object2 }: objectProps) {
 
           <div className=" text-justify font-bold text-white">
             <div>
-              {task.map((task, index) => (
+              {filteredTasks.map((task, index) => (
                 <div
                   className="card card-compact w- m-2 ml-4 pl-3 bg-lime-800 shadow-xl hover:bg-lime-400"
                   key={index}
