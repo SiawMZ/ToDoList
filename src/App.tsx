@@ -1,6 +1,7 @@
 import { ToDoList } from "./component/ToDoList";
 import Navbar from "./component/Navbar";
 import SearchComponent from "./component/searchComponent";
+import AddTask from "./component/addTask";
 import { useState } from "react";
 
 function App() {
@@ -12,13 +13,16 @@ function App() {
 
   return (
     <>
-      <div className="bg-emerald-950 max-w-screen h-screen ">
+      <div className="bg-mz_yellow max-w-screen h-screen ">
         <Navbar />
 
         <div>
-          <SearchComponent onSearch={handleSearch} />
+          <div className="flex flex-auto justify-center">
+            <SearchComponent onSearch={handleSearch} />
+            <AddTask />
+          </div>
 
-          <div className="flex flex-auto flex-wrap px-6">
+          <div className="flex flex-auto flex-wrap justify-center">
             <ToDoList
               object="Habits"
               object2="Add a Habit"

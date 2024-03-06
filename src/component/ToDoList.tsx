@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 
 type objectProps = {
   object: string;
@@ -11,6 +11,8 @@ type Task = {
   remarks: string;
   // Assuming date is represented as a string
 };
+
+//export const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 export function ToDoList({ object, object2, searchTerm }: objectProps) {
   const [task, setTask] = useState<Task[]>([]);
@@ -76,7 +78,17 @@ export function ToDoList({ object, object2, searchTerm }: objectProps) {
 
   return (
     <>
-      <div className="bg-lime-100 rounded-xl py-3 px-2 pr-4 ml-3">
+      {/*      <TodoContext.Provider
+        value={{
+          task,
+          setTask,
+          taskTitle,
+          setTaskTitle,
+          taskRemarks,
+          setTaskRemarks,
+        }}
+      >*/}
+      <div className="bg-mz_green rounded-xl py-3 px-2 pr-4 ml-3 mt-2">
         {/* input area */}
         <div>
           <div className="py-4 px-8 ml-3">
@@ -84,7 +96,7 @@ export function ToDoList({ object, object2, searchTerm }: objectProps) {
               <input
                 type="text"
                 placeholder={object2}
-                className="input input-bordered w-full max-w-xs bg-emerald-100 font-bold my-2"
+                className="input input-bordered w-full max-w-xs bg-white font-bold my-2"
                 value={taskTitle}
                 onChange={handleTaskTitle}
               />
@@ -148,6 +160,7 @@ export function ToDoList({ object, object2, searchTerm }: objectProps) {
           </div>
         </div>
       </div>
+      {/*</></TodoContext.Provider>*/}
     </>
   );
 }

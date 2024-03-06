@@ -11,7 +11,7 @@ const SearchComponent: React.FC<SearchProps> = ({ onSearch }) => {
 
   return (
     <div className="w-4/5 m-5 ml-28 px-20">
-      <label className="bg-lime-50 input input-bordered flex items-center gap-2">
+      <label className="bg-white input input-bordered flex items-center gap-2">
         <input
           type="text"
           placeholder="Search tasks..."
