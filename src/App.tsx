@@ -2,6 +2,7 @@ import { ToDoList } from "./component/ToDoList";
 import Navbar from "./component/Navbar";
 import SearchComponent from "./component/searchComponent";
 import AddTask from "./component/addTask";
+
 import { useState } from "react";
 
 function App() {
