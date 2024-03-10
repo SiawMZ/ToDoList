@@ -1,80 +1,25 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { useToDo } from "./ToDoContext";
+>>>>>>> c67760880f994fa1b3796e0ed10ac6cafc3018aa
 
-type objectProps = {
+type objectProps2 = {
   object: string;
-  object2: string;
-  searchTerm: string;
+  tag: string;
 };
 
-type Task = {
-  title: string;
-  remarks: string;
-  // Assuming date is represented as a string
-};
-
-//export const TodoContext = createContext<TodoContextType | undefined>(undefined);
-
-export function ToDoList({ object, object2, searchTerm }: objectProps) {
-  const [task, setTask] = useState<Task[]>([]);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskRemarks, setTaskRemarks] = useState("");
-  //const [newTask, setNewTask] = useState("");
-
-  const handleTaskTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskTitle(event.target.value);
-  };
-
-  const filteredTasks = task.filter((task) =>
-    task.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  //const handleTaskRemarks = (event: React.ChangeEvent<HTMLInputElement>) => {setTaskRemarks(event.target.value);};
-
-  const handleAddTask = () => {
-    if (!taskTitle.trim()) {
-      return; // Don't add task if title or remarks are empty
-    }
-
-    const newTask: Task = {
-      title: taskTitle,
-      remarks: taskRemarks,
-    };
-
-    setTask((prevTask) => [...prevTask, newTask]);
-    setTaskTitle("");
-    setTaskRemarks("");
-  };
-
-  const handleDeleteTask = (index: number) => {
-    setTask(task.filter((_, i) => i !== index));
-  };
-
-  const handleMoveTaskUp = (index: number) => {
-    if (index > 0) {
-      const updatedIndex = [...task];
-      [updatedIndex[index], updatedIndex[index - 1]] = [
-        updatedIndex[index - 1],
-        updatedIndex[index],
-      ];
-      setTask(updatedIndex);
-    }
-  };
-
-  const handleMoveTaskDown = (index: number) => {
-    if (index < task.length - 1) {
-      const updatedIndex = [...task];
-      [updatedIndex[index], updatedIndex[index + 1]] = [
-        updatedIndex[index + 1],
-        updatedIndex[index],
-      ];
-      setTask(updatedIndex);
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleAddTask();
-  };
+export function ToDoList({ object, tag }: objectProps2) {
+  const {
+    handleSubmit,
+    handleTaskTitle,
+    taskTitle,
+    handleDeleteTask,
+    handleMoveTaskUp,
+    handleMoveTaskDown,
+    filteredTasks,
+    task,
+  } = useToDo();
 
   return (
     <>
@@ -95,7 +40,7 @@ export function ToDoList({ object, object2, searchTerm }: objectProps) {
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
-                placeholder={object2}
+                placeholder={tag}
                 className="input input-bordered w-full max-w-xs bg-white font-bold my-2"
                 value={taskTitle}
                 onChange={handleTaskTitle}
