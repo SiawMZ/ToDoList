@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 //import { useState } from "react";
-=======
-import { useToDo } from "./ToDoContext";
->>>>>>> c67760880f994fa1b3796e0ed10ac6cafc3018aa
 
 export default function AddTask() {
   //const [addButton, setAddButton] = useState();
@@ -15,14 +11,6 @@ export default function AddTask() {
     }
   };
 
-  const {
-    handleAddTask,
-    handleTaskTitle,
-    handleTaskRemarks,
-    taskTitle,
-    taskRemarks,
-  } = useToDo();
-
   return (
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
@@ -34,21 +22,10 @@ export default function AddTask() {
           <h3 className="font-bold text-lg">Hello!</h3>
           <div>
             <p>Title:</p>
-<<<<<<< HEAD
             <input type="text" />
             <br />
             <p>Description:</p>
             <input type="text" />
-=======
-            <input type="text" value={taskTitle} onChange={handleTaskTitle} />
-            <br />
-            <p>Description:</p>
-            <input
-              type="text"
-              value={taskRemarks}
-              onChange={handleTaskRemarks}
-            />
->>>>>>> c67760880f994fa1b3796e0ed10ac6cafc3018aa
           </div>
 
           <div>
@@ -66,13 +43,7 @@ export default function AddTask() {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-<<<<<<< HEAD
               <button className="btn">Submit</button>
-=======
-              <button className="btn" onClick={handleAddTask}>
-                Submit
-              </button>
->>>>>>> c67760880f994fa1b3796e0ed10ac6cafc3018aa
               <button className="btn">Close</button>
             </form>
           </div>
